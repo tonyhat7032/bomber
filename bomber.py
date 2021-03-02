@@ -195,9 +195,7 @@ def selectnode(mode="sms"):
         clr()
         bann_text()
         check_intr()
-        check_for_updates()
-        notifyen()
-
+        
         max_limit = {"sms": 5000, "call": 1500}
         cc, target = "", ""
         if mode in ["sms", "call"]:
@@ -273,8 +271,6 @@ parser.add_argument("-sms", "--sms", action="store_true",
                     help="start TBomb with SMS Bomb mode")
 parser.add_argument("-call", "--call", action="store_true",
                     help="start TBomb with CALL Bomb mode")
-parser.add_argument("-u", "--update", action="store_true",
-                    help="update TBomb")
 parser.add_argument("-c", "--contributors", action="store_true",
                     help="show current TBomb contributors")
 parser.add_argument("-v", "--version", action="store_true",
@@ -287,8 +283,6 @@ if __name__ == "__main__":
         print("Version: ", __VERSION__)
     elif args.contributors:
         print("Contributors: ", " ".join(__CONTRIBUTORS__))
-    elif args.update:
-        update()
     elif args.call:
         selectnode(mode="call")
     elif args.sms:
