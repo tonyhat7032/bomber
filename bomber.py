@@ -82,88 +82,10 @@ def format_phone(num):
     return ''.join(num).strip()
 
 
-def do_zip_update():
-    success = False
-
-    # Download Zip from git
-    # Unzip and overwrite the current folder
-
-    if success:
-        mesgdcrt.SuccessMessage("TBomb was updated to the latest version")
-        mesgdcrt.GeneralMessage(
-            "Please run the script again to load the latest version")
-    else:
-        mesgdcrt.FailureMessage("Unable to update TBomb.")
-        mesgdcrt.WarningMessage(
-            "Grab The Latest one From https://github.com/Hackertrackersj/Tbomb.git")
-
     sys.exit()
 
 
-def do_git_update():
-    success = False
-    try:
-        print(ALL_COLORS[0]+"UPDATING "+RESET_ALL, end='')
-        process = subprocess.Popen("git checkout . && git pull ",
-                                   shell=True,
-                                   stdout=subprocess.PIPE,
-                                   stderr=subprocess.STDOUT)
-        while process:
-            print(ALL_COLORS[0]+'.'+RESET_ALL, end='')
-            time.sleep(1)
-            returncode = process.poll()
-            if returncode is not None:
-                break
-        success = not process.returncode
-    except Exception:
-        success = False
-    print("\n")
 
-    if success:
-        mesgdcrt.SuccessMessage("TBomb was updated to the latest version")
-        mesgdcrt.GeneralMessage(
-            "Please run the script again to load the latest version")
-    else:
-        mesgdcrt.FailureMessage("Unable to update TBomb.")
-        mesgdcrt.WarningMessage("Make Sure To Install 'git' ")
-        mesgdcrt.GeneralMessage("Then run command:")
-        print(
-            "git checkout . && "
-            "git pull https://github.com/Hackertrackersj/Tbomb HEAD")
-    sys.exit()
-
-
-def update():
-    if shutil.which('git'):
-        do_git_update()
-    else:
-        do_zip_update()
-
-
-def check_for_updates():
-    mesgdcrt.SectionMessage("Checking for updates")
-    fver = requests.get(
-            "https://raw.githubusercontent.com/Hackertrackersj/Tbomb/master/.version"
-            ).text.strip()
-    if fver != __VERSION__:
-        mesgdcrt.WarningMessage("An update is available")
-        mesgdcrt.GeneralMessage("Starting update...")
-        update()
-    else:
-        mesgdcrt.SuccessMessage("TBomb is up-to-date")
-        mesgdcrt.GeneralMessage("Starting TBomb")
-
-
-def notifyen():
-    try:
-        noti = requests.get(
-            "https://raw.githubusercontent.com/Hackertrackersj/Tbomb/master/.notify"
-            ).text.upper()
-        if len(noti) > 10:
-            mesgdcrt.SectionMessage("NOTIFICATION: " + noti)
-            print()
-    except Exception:
-        pass
 
 
 def get_phone_info():
